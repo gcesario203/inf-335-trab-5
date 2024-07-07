@@ -6,12 +6,14 @@ pipeline{
     }
 
     stages{
-        stage('Primeiro build'){
+        stage('Stage'){
+            steps {
             // damos fetch do nosso código no git
             git 'https://github.com/gcesario203/inf-335-trab-5'
 
             // executa o maven e 'limpa' o build anterior?
             sh "mvn -Dmaven.test.failure.ignore=true clean package"
+            }
         }
 
         post {
