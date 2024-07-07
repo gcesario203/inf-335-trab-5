@@ -7,7 +7,7 @@ pipeline {
     }
 
     stages {
-        stage('Passo de build') {
+        stage('Estágio de build') {
             steps {
                 // Busca o repositório no git
                 // OBS: Como a versão do git da minha máquina é mais antiga, ela ainda
@@ -15,15 +15,9 @@ pipeline {
                 // branch será utilizada no JenkinsFile
                 git 'https://github.com/gcesario203/inf-335-trab-5'
 
-                sh "mvn -Dmaven.test.failure.ignore=true clean package"
+                // roda o maven e cria o .jar
+                sh "mvn clean package"
 
-            }
-
-            post {
-                success {
-                    junit '**/target/surefire-reports/TEST-*.xml'
-                    archiveArtifacts 'target/*.jar'
-                }
             }
         }
     }
