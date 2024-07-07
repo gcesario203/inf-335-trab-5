@@ -19,6 +19,17 @@ pipeline {
                 sh "mvn clean package"
 
             }
+
+            /// passo que será executado no final dos passos do stage `Estágio de build`
+            post {
+                success {
+                    /// Caminho dos testes unitários de onde será mapeado na interface do Jenkins
+                    junit '**/target/surefire-reports/TEST-*.xml'
+
+                    /// Caminho dos artefatos gerados pelo estágio de build
+                    archiveArtifacts 'target/*.jar'
+                }
+            }
         }
     }
 }
